@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/core/screens/movie_details/movie_details.dart';
+import 'package:movieapp/core/widgets/browse_widget/browse_widget_list.dart';
 import 'package:movieapp/layout/home_layout.dart';
 
 import 'config/app_theme/app_theme.dart';
@@ -21,6 +23,8 @@ class MyApp extends StatelessWidget {
         initialRoute: HomeLayout.routeName,
         routes: {
           HomeLayout.routeName: (context) => HomeLayout(),
+          BrowseListWidget.routeName: (context) => BrowseListWidget(),
+          MovieDetails.routeName: (context) => MovieDetails(),
         }
     );
   }

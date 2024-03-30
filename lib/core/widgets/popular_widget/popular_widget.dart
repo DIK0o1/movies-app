@@ -5,6 +5,7 @@ import 'package:movieapp/core/widgets/popular_widget/popular_item.dart';
 
 import '../../../config/api_manager/api_manger.dart';
 import '../../../models/PopularMovie.dart';
+import '../../screens/movie_details/movie_details.dart';
 
 
 class PopularWidget extends StatelessWidget {
@@ -47,8 +48,12 @@ class PopularWidget extends StatelessWidget {
           ),
           itemCount: popularList.length,
           itemBuilder: (context, index, realIndex) => InkWell(
-            onTap: ()  {
-
+            onTap: ()  async {
+              Navigator.of(context).pushNamed(
+                  MovieDetails.routeName,
+                  arguments: await ApiManager.getMovieDetails(
+              popularList[index].id ?? 0),
+              );
             },
             child: PopularItem(results: popularList[index]),
           ),
