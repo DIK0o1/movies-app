@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../config/api_manager/api_manger.dart';
 import '../../../constants/app_colors.dart';
 import '../../../models/TopRatedMovie.dart';
+import '../../screens/movie_details/movie_details.dart';
 
 
 class RecomendedItem extends StatefulWidget {
@@ -20,14 +21,15 @@ class _RecomendedItemState extends State<RecomendedItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-
+        Navigator.of(context).pushNamed(MovieDetails.routeName,
+            arguments: await ApiManager.getMovieDetails(widget.result.id ?? 0));
       },
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(2),
         width: MediaQuery.of(context).size.width * .3,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color:AppColors.greyColor
+          color:AppColors.backgroundColor
         ),
         clipBehavior: Clip.antiAlias,
         child: Column(
@@ -36,10 +38,14 @@ class _RecomendedItemState extends State<RecomendedItem> {
             Expanded(
               child: Stack(
                 children: [
-                  Image.network(
-                    'https://image.tmdb.org/t/p/w600_and_h900_bestv2${widget.result.posterPath}',
-                    fit: BoxFit.fill,
-                    width: MediaQuery.of(context).size.width * .3,
+                  ClipRRect(
+
+                    child: Image.network(
+                      'https://image.tmdb.org/t/p/w600_and_h900_bestv2${widget.result.posterPath}',
+                      fit: BoxFit.fill,
+                      width: MediaQuery.of(context).size.width * .3,
+                    ),
+                    borderRadius: BorderRadius.circular(5),
                   ),
                   Image.asset('assets/images/bookmark.png'),
                 ],
@@ -76,7 +82,7 @@ class _RecomendedItemState extends State<RecomendedItem> {
             Text(
               '${widget.result.releaseDate}',
               style: const TextStyle(
-                color: Color(0xffB5B4B4),
+                color:AppColors.lightGreyColor,
               ),
             ),
           ],

@@ -50,7 +50,7 @@ class PopularWidget extends StatelessWidget {
           itemBuilder: (context, index, realIndex) => InkWell(
             onTap: ()  async {
               Navigator.of(context).pushNamed(
-                  MovieDetails.routeName,
+                MovieDetails.routeName,
                   arguments: await ApiManager.getMovieDetails(
               popularList[index].id ?? 0),
               );

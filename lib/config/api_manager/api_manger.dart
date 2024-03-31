@@ -8,6 +8,7 @@ import '../../models/PopularMovie.dart';
 import '../../models/SearchMovieModel.dart';
 import '../../models/SimilarMovie.dart';
 import '../../models/TopRatedMovie.dart';
+import '../../models/TrailerResponse.dart';
 
 class ApiManager{
 
@@ -126,5 +127,19 @@ class ApiManager{
       rethrow;
     }
   }
-
+  static Future<TrailerResponse> youtubeMoviesResponse(int movie_id) async {
+    Uri url = Uri.https(
+        Constants.baseUrl, '/3/movie/$movie_id/videos', {
+      "api_key": Constants.apiKey,
+      "language": "en-US",
+    });
+    try {
+      var response = await http.get(url);
+      var responseBody = response.body;
+      var json = jsonDecode(responseBody);
+      return TrailerResponse.fromJson(json);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

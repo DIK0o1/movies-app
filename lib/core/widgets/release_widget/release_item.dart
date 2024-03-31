@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/constants/app_colors.dart';
 
+import '../../../config/api_manager/api_manger.dart';
 import '../../../models/PopularMovie.dart';
+import '../../screens/movie_details/movie_details.dart';
 
 
 class ReleaseItem extends StatefulWidget {
@@ -22,7 +24,8 @@ class _ItemState extends State<ReleaseItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-
+        Navigator.of(context).pushNamed(MovieDetails.routeName,
+            arguments: await ApiManager.getMovieDetails(widget.result.id ?? 0));
       },
       child: Container(
         decoration: BoxDecoration(
