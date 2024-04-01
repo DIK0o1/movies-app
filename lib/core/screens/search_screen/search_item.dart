@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/constants/app_colors.dart';
 
-class SearchItem extends StatelessWidget {
+import '../../../firebase_utils/firebase_utils.dart';
+import '../../../models/SearchMovieModel.dart';
+import '../../../models/WatchListModel.dart';
+
+class SearchItem extends StatefulWidget {
   String image;
 
   String title;
@@ -9,14 +13,44 @@ class SearchItem extends StatelessWidget {
   String date;
 
   String content;
+  Results result;
+
+
 
   SearchItem({
     required this.image,
     required this.title,
     required this.date,
     required this.content,
+  required this.result
   });
 
+
+  @override
+  State<SearchItem> createState() => _SearchItemState();
+}
+
+class _SearchItemState extends State<SearchItem> {
+  late WatchListModel model;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      var isExist = await FirebaseUtils.isInWatchList(widget.result.id!);
+      model.check = isExist;
+      setState(() {});
+    });
+
+    model = WatchListModel(
+      id: widget.result.id ?? 0,
+      image: widget.result.posterPath ?? '',
+      title: widget.result.title ?? '',
+      content: widget.result.overview ?? '',
+      date: widget.result.releaseDate ?? '',
+      check: false,
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,12 +67,24 @@ class SearchItem extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.network(
-                    'https://image.tmdb.org/t/p/w600_and_h900_bestv2$image',
+                    'https://image.tmdb.org/t/p/w600_and_h900_bestv2${widget.image}',
                     fit: BoxFit.cover,
                     width: 200,
                   ),
-                  Image.asset('assets/images/bookmark.png'),
-                ],
+                  InkWell(
+                    onTap: () {
+                      if (model.check) {
+                        FirebaseUtils.deleteWatchListFromFirebase(model.id);
+                      } else {
+                        FirebaseUtils.addWatchListToFirebase(model);
+                      }
+                      model.check = !model.check;
+                      setState(() {});
+                    },
+                    child: model.check == true
+                        ? Image.asset('assets/images/bookmarkDone.png')
+                        : Image.asset('assets/images/bookmark.png'),
+                  ),                ],
               ),
             ),
           ),
@@ -50,21 +96,21 @@ class SearchItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  widget.title,
                   style: TextStyle(color: AppColors.whiteColor),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 Text(
-                  date,
+                  widget.date,
                   style: TextStyle(color: AppColors.whiteColor),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 Text(
-                  content,
+                  widget.content,
                   style: TextStyle(color: AppColors.whiteColor),
                   overflow: TextOverflow.ellipsis,
                 ),

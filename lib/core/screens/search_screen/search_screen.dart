@@ -131,6 +131,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           title: searchList[index].title ?? '',
                           date: searchList[index].releaseDate ?? '',
                           content: searchList[index].overview ?? '',
+                          result: searchList[index],
                         ),
                       );
                     },
