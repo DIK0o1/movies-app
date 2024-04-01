@@ -16,7 +16,6 @@ class SearchItem extends StatefulWidget {
   Results result;
 
 
-
   SearchItem({
     required this.image,
     required this.title,
