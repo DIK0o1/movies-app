@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/constants/app_colors.dart';
 
 import '../../../config/api_manager/api_manger.dart';
-import '../../../constants/app_colors.dart';
+import '../../../firebase_utils/firebase_utils.dart';
 import '../../../models/TopRatedMovie.dart';
+import '../../../models/WatchListModel.dart';
 import '../../screens/movie_details/movie_details.dart';
-
 
 class RecomendedItem extends StatefulWidget {
   Results result;
@@ -16,6 +17,26 @@ class RecomendedItem extends StatefulWidget {
 }
 
 class _RecomendedItemState extends State<RecomendedItem> {
+  late WatchListModel model;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      var isExist = await FirebaseUtils.isInWatchList(widget.result.id!);
+      model.check = isExist;
+      setState(() {});
+    });
+
+    model = WatchListModel(
+      id: widget.result.id ?? 0,
+      image: widget.result.posterPath ?? '',
+      title: widget.result.title ?? '',
+      content: widget.result.overview ?? '',
+      date: widget.result.releaseDate ?? '',
+      check: false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +50,7 @@ class _RecomendedItemState extends State<RecomendedItem> {
         width: MediaQuery.of(context).size.width * .3,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color:AppColors.backgroundColor
+          color: AppColors.backgroundColor,
         ),
         clipBehavior: Clip.antiAlias,
         child: Column(
@@ -39,7 +60,6 @@ class _RecomendedItemState extends State<RecomendedItem> {
               child: Stack(
                 children: [
                   ClipRRect(
-
                     child: Image.network(
                       'https://image.tmdb.org/t/p/w600_and_h900_bestv2${widget.result.posterPath}',
                       fit: BoxFit.fill,
@@ -47,13 +67,26 @@ class _RecomendedItemState extends State<RecomendedItem> {
                     ),
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  Image.asset('assets/images/bookmark.png'),
+                  InkWell(
+                    onTap: () {
+                      if (model.check) {
+                        FirebaseUtils.deleteWatchListFromFirebase(model.id);
+                      } else {
+                        FirebaseUtils.addWatchListToFirebase(model);
+                      }
+                      model.check = !model.check;
+                      setState(() {});
+                    },
+                    child: model.check == true
+                        ? Image.asset('assets/images/bookmarkDone.png')
+                        : Image.asset('assets/images/bookmark.png'),
+                  ),
                 ],
               ),
             ),
             Row(
               children: [
-                Icon(Icons.star, color: AppColors.yellowColor),
+                Icon(Icons.star, color: AppColors.yellowColor,),
                 const SizedBox(
                   width: 5,
                 ),
@@ -82,7 +115,7 @@ class _RecomendedItemState extends State<RecomendedItem> {
             Text(
               '${widget.result.releaseDate}',
               style: const TextStyle(
-                color:AppColors.lightGreyColor,
+                color: AppColors.lightGreyColor,
               ),
             ),
           ],

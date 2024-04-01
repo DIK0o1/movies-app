@@ -171,12 +171,12 @@ class _MovieDetailsState extends State<MovieDetails> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                    color: Colors.grey,
+                                    color: AppColors.greyColor,
                                   )),
                               child: Text(
                                 '${args.genres?.elementAt(0).name}',
                                 style: const TextStyle(
-                                  color: Color(0xffCBCBCB),
+                                  color: AppColors.whiteColor,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,
                                 ),
@@ -189,12 +189,12 @@ class _MovieDetailsState extends State<MovieDetails> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                    color: Colors.grey,
+                                    color: AppColors.greyColor,
                                   )),
                               child: Text(
                                 '${args.genres?.elementAt(1).name}',
                                 style: const TextStyle(
-                                  color: Color(0xffCBCBCB),
+                                  color: AppColors.whiteColor,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,
                                 ),
@@ -234,7 +234,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                             Text(
                               '${args.voteAverage}',
                               style: const TextStyle(
-                                color: Color(0xffCBCBCB),
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 18,
                               ),
@@ -331,7 +331,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                                         ),
                                         Row(
                                           children: [
-                                            Icon(Icons.start,color: AppColors.yellowColor,),
+                                            Icon(Icons.star,color: AppColors.yellowColor,),
                                             const SizedBox(
                                               width: 5,
                                             ),

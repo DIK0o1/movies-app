@@ -64,6 +64,7 @@ class BrowseListWidget extends StatelessWidget {
                   title: genreListDetails[index].title ?? '',
                   date: genreListDetails[index].releaseDate ?? '',
                   content: genreListDetails[index].overview ?? '',
+                  result: genreListDetails[index],
                 ),
               );
             },

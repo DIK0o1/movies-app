@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:movieapp/core/widgets/recomended_widget/recomended_widget.dart';
 import 'package:movieapp/core/widgets/release_widget/release_widget.dart';
 
 import '../../widgets/popular_widget/popular_widget.dart';
+import '../../widgets/recomended_widget/recomended_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

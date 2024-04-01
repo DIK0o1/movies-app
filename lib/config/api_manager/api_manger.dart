@@ -127,9 +127,9 @@ class ApiManager{
       rethrow;
     }
   }
-  static Future<TrailerResponse> youtubeMoviesResponse(int movie_id) async {
+  static Future<TrailerResponse> youtubeMoviesResponse(int movieId) async {
     Uri url = Uri.https(
-        Constants.baseUrl, '/3/movie/$movie_id/videos', {
+        Constants.baseUrl, '/3/movie/$movieId/videos', {
       "api_key": Constants.apiKey,
       "language": "en-US",
     });
