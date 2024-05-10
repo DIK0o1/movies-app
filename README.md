@@ -26,7 +26,10 @@ The Movies App is a Flutter application designed to provide users with access to
 - [TMDb API Documentation](https://developers.themoviedb.org/3/getting-started/introduction)
 
 ## Screenshots
-[WhatsApp Video 2024-04-01 at 06.37.42_7f3c6ebf.mp4](..%2FDownloads%2FVideo%2FWhatsApp%20Video%202024-04-01%20at%2006.37.42_7f3c6ebf.mp4)
+
+
+https://github.com/DIK0o1/movies-app/assets/84192043/c6e7afba-929d-4e7e-a046-faec9cf40374
+
 
 ## Acknowledgements
 - Special thanks to [The Movie Database (TMDb)](https://www.themoviedb.org/) for providing access to their API.
