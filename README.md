@@ -1,3 +1,5 @@
+
+https://github.com/DIK0o1/movies-app/assets/84192043/8f21e7bd-341c-440f-a5f8-db4261242926
 # Movies App
 
 ## Overview
@@ -25,11 +27,8 @@ The Movies App is a Flutter application designed to provide users with access to
 ## API Documentation
 - [TMDb API Documentation](https://developers.themoviedb.org/3/getting-started/introduction)
 
-## Screenshots
-
-
-https://github.com/DIK0o1/movies-app/assets/84192043/c6e7afba-929d-4e7e-a046-faec9cf40374
-
+## Demo
+- https://github.com/DIK0o1/movies-app/assets/84192043/714db9cd-5e04-4512-ba88-324a09ff07d4
 
 ## Acknowledgements
 - Special thanks to [The Movie Database (TMDb)](https://www.themoviedb.org/) for providing access to their API.
